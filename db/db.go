@@ -3,6 +3,7 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"github.com/AndySu1021/go-util/logger"
 	"os"
 	"path"
 	"strconv"

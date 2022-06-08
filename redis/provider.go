@@ -3,6 +3,7 @@ package redis
 import (
 	"context"
 	"fmt"
+	"github.com/AndySu1021/go-util/logger"
 	"github.com/cenkalti/backoff/v4"
 	"github.com/go-redis/redis/v8"
 	"go.uber.org/fx"
