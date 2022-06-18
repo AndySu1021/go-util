@@ -34,7 +34,6 @@ type Config struct {
 	MaxIdleConnections int          `mapstructure:"max_idle_connections"`
 	MaxOpenConnections int          `mapstructure:"max_open_connections"`
 	MaxLifetimeSec     int          `mapstructure:"max_lifetime_sec"`
-	WithColor          bool         `mapstructure:"with_color"`
 }
 
 func GetConnectionStr(cfg *Config) (connectionString string, err error) {
@@ -76,19 +75,19 @@ func NewDatabase(cfg *Config) (db *sql.DB, err error) {
 	if cfg.MaxIdleConnections != 0 {
 		db.SetMaxIdleConns(cfg.MaxIdleConnections)
 	} else {
-		db.SetMaxIdleConns(2)
+		db.SetMaxIdleConns(25)
 	}
 
 	if cfg.MaxOpenConnections != 0 {
 		db.SetMaxOpenConns(cfg.MaxOpenConnections)
 	} else {
-		db.SetMaxOpenConns(5)
+		db.SetMaxOpenConns(25)
 	}
 
 	if cfg.MaxLifetimeSec != 0 {
 		db.SetConnMaxLifetime(time.Duration(cfg.MaxLifetimeSec) * time.Second)
 	} else {
-		db.SetConnMaxLifetime(1 * time.Hour)
+		db.SetConnMaxLifetime(5 * time.Minute)
 	}
 
 	return db, err
