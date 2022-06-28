@@ -9,7 +9,7 @@ import (
 	"time"
 )
 
-var Module = fx.Options(
+var Options = fx.Options(
 	fx.Provide(
 		NewEtcdClient,
 		NewEtcd,

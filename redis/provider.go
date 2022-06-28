@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-var Module = fx.Options(
+var Options = fx.Options(
 	fx.Provide(
 		NewRedisClient,
 		NewRedis,

@@ -4,22 +4,22 @@ import (
 	"context"
 	"io"
 	"os"
+	"strings"
 )
 
 type DiskLocal struct {
-	// 存放根目錄
-	RootDir string
 	BaseUrl string
 }
 
-func (d *DiskLocal) Upload(ctx context.Context, reader io.Reader, filename string) (path string, err error) {
+func (d *DiskLocal) Upload(ctx context.Context, reader io.Reader, path, filename string) (result string, err error) {
 	fileName := getFileName(filename)
+	rootDir := "./" + strings.Trim(path, "/") + "/"
 
-	if err = os.MkdirAll(d.RootDir, os.ModePerm); err != nil {
+	if err = os.MkdirAll(rootDir, os.ModePerm); err != nil {
 		return "", err
 	}
 
-	out, err := os.Create(d.RootDir + fileName)
+	out, err := os.Create(rootDir + fileName)
 	if err != nil {
 		return "", err
 	}
@@ -31,5 +31,5 @@ func (d *DiskLocal) Upload(ctx context.Context, reader io.Reader, filename strin
 		return "", err
 	}
 
-	return getUrl(d.BaseUrl, fileName), nil
+	return getUrl(d.BaseUrl, path, fileName), nil
 }

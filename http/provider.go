@@ -1,12 +1,12 @@
 package http
 
 import (
+	iface "github.com/AndySu1021/go-util/interface"
 	"go.uber.org/fx"
-	iface "red-packet/util/interface"
 	"time"
 )
 
-var Module = fx.Options(
+var Options = fx.Options(
 	fx.Provide(
 		NewHttpClient,
 	),
