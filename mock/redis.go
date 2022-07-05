@@ -25,6 +25,7 @@ func NewRedis(t *testing.T) iface.IRedis {
 	mock.EXPECT().ZRangeByScore(gomock.Any(), gomock.Any(), gomock.Any()).AnyTimes().Return([]string{}, nil)
 	mock.EXPECT().ZIncrBy(gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any()).AnyTimes().Return(nil)
 	mock.EXPECT().ZRank(gomock.Any(), gomock.Any(), gomock.Any()).AnyTimes().Return(int64(0), nil)
+	mock.EXPECT().ZAddArgsIncr(gomock.Any(), gomock.Any(), gomock.Any()).AnyTimes().Return(nil)
 	mock.EXPECT().GetClient().AnyTimes().Return(&redis.Client{})
 
 	return mock

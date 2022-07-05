@@ -204,6 +204,20 @@ func (mr *MockIRedisMockRecorder) ZAdd(ctx, key interface{}, z ...interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ZAdd", reflect.TypeOf((*MockIRedis)(nil).ZAdd), varargs...)
 }
 
+// ZAddArgsIncr mocks base method.
+func (m *MockIRedis) ZAddArgsIncr(ctx context.Context, key string, args redis.ZAddArgs) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ZAddArgsIncr", ctx, key, args)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ZAddArgsIncr indicates an expected call of ZAddArgsIncr.
+func (mr *MockIRedisMockRecorder) ZAddArgsIncr(ctx, key, args interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ZAddArgsIncr", reflect.TypeOf((*MockIRedis)(nil).ZAddArgsIncr), ctx, key, args)
+}
+
 // ZIncrBy mocks base method.
 func (m *MockIRedis) ZIncrBy(ctx context.Context, key string, increment float64, member string) error {
 	m.ctrl.T.Helper()

@@ -109,6 +109,17 @@ func (c *Redis) ZRank(ctx context.Context, key, member string) (int64, error) {
 	return val, nil
 }
 
+func (c *Redis) ZAddArgsIncr(ctx context.Context, key string, args redis.ZAddArgs) error {
+	if err := c.client.ZAddArgsIncr(ctx, key, args).Err(); err != nil && err != redis.Nil {
+		return err
+	}
+	return nil
+}
+
+func (c *Redis) ZScore(ctx context.Context, key, member string) (float64, error) {
+	return c.client.ZScore(ctx, key, member).Result()
+}
+
 func (c *Redis) GetClient() *redis.Client {
 	return c.client
 }
