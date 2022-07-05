@@ -280,3 +280,18 @@ func (mr *MockIRedisMockRecorder) ZRem(ctx, key interface{}, members ...interfac
 	varargs := append([]interface{}{ctx, key}, members...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ZRem", reflect.TypeOf((*MockIRedis)(nil).ZRem), varargs...)
 }
+
+// ZScore mocks base method.
+func (m *MockIRedis) ZScore(ctx context.Context, key, member string) (float64, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ZScore", ctx, key, member)
+	ret0, _ := ret[0].(float64)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ZScore indicates an expected call of ZScore.
+func (mr *MockIRedisMockRecorder) ZScore(ctx, key, member interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ZScore", reflect.TypeOf((*MockIRedis)(nil).ZScore), ctx, key, member)
+}
