@@ -102,9 +102,9 @@ func (c *Redis) ZRank(ctx context.Context, key, member string) (int64, error) {
 	val, err := c.client.ZRank(ctx, key, member).Result()
 	if err != nil {
 		if err == redis.Nil {
-			return 0, nil
+			return -1, nil
 		}
-		return 0, err
+		return -1, err
 	}
 	return val, nil
 }
