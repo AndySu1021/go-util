@@ -40,10 +40,7 @@ func (c *Redis) SetNX(ctx context.Context, key string, data interface{}, expireA
 }
 
 func (c *Redis) SetEX(ctx context.Context, key string, data interface{}, expireAt time.Duration) error {
-	if err := c.client.SetEX(ctx, key, data, expireAt).Err(); err != nil {
-		return err
-	}
-	return nil
+	return c.client.SetEX(ctx, key, data, expireAt).Err()
 }
 
 func (c *Redis) LPush(ctx context.Context, key string, values ...interface{}) (total int64, err error) {
@@ -63,34 +60,53 @@ func (c *Redis) RPop(ctx context.Context, key string) (result string, err error)
 }
 
 func (c *Redis) Expire(ctx context.Context, key string, expireAt time.Duration) error {
-	err := c.client.Expire(ctx, key, expireAt).Err()
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return c.client.Expire(ctx, key, expireAt).Err()
 }
 
 func (c *Redis) Del(ctx context.Context, key string) error {
-	err := c.client.Del(ctx, key).Err()
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return c.client.Del(ctx, key).Err()
 }
 
 func (c *Redis) Publish(ctx context.Context, channel string, message []byte) error {
-	err := c.client.Publish(ctx, channel, message).Err()
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return c.client.Publish(ctx, channel, message).Err()
 }
 
 func (c *Redis) Subscribe(ctx context.Context, channel string) *redis.PubSub {
 	return c.client.Subscribe(ctx, channel)
+}
+
+func (c *Redis) ZAdd(ctx context.Context, key string, z ...*redis.Z) error {
+	return c.client.ZAdd(ctx, key, z...).Err()
+}
+
+func (c *Redis) ZRem(ctx context.Context, key string, members ...interface{}) error {
+	return c.client.ZRem(ctx, key, members...).Err()
+}
+
+func (c *Redis) ZRangeByScore(ctx context.Context, key string, opt *redis.ZRangeBy) ([]string, error) {
+	val, err := c.client.ZRangeByScore(ctx, key, opt).Result()
+	if err != nil {
+		if err == redis.Nil {
+			return []string{}, nil
+		}
+		return []string{}, err
+	}
+	return val, nil
+}
+
+func (c *Redis) ZIncrBy(ctx context.Context, key string, increment float64, member string) error {
+	return c.client.ZIncrBy(ctx, key, increment, member).Err()
+}
+
+func (c *Redis) ZRank(ctx context.Context, key, member string) (int64, error) {
+	val, err := c.client.ZRank(ctx, key, member).Result()
+	if err != nil {
+		if err == redis.Nil {
+			return 0, nil
+		}
+		return 0, err
+	}
+	return val, nil
 }
 
 func (c *Redis) GetClient() *redis.Client {

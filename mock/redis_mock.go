@@ -184,3 +184,85 @@ func (mr *MockIRedisMockRecorder) Subscribe(ctx, channel interface{}) *gomock.Ca
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Subscribe", reflect.TypeOf((*MockIRedis)(nil).Subscribe), ctx, channel)
 }
+
+// ZAdd mocks base method.
+func (m *MockIRedis) ZAdd(ctx context.Context, key string, z ...*redis.Z) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, key}
+	for _, a := range z {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ZAdd", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ZAdd indicates an expected call of ZAdd.
+func (mr *MockIRedisMockRecorder) ZAdd(ctx, key interface{}, z ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, key}, z...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ZAdd", reflect.TypeOf((*MockIRedis)(nil).ZAdd), varargs...)
+}
+
+// ZIncrBy mocks base method.
+func (m *MockIRedis) ZIncrBy(ctx context.Context, key string, increment float64, member string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ZIncrBy", ctx, key, increment, member)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ZIncrBy indicates an expected call of ZIncrBy.
+func (mr *MockIRedisMockRecorder) ZIncrBy(ctx, key, increment, member interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ZIncrBy", reflect.TypeOf((*MockIRedis)(nil).ZIncrBy), ctx, key, increment, member)
+}
+
+// ZRangeByScore mocks base method.
+func (m *MockIRedis) ZRangeByScore(ctx context.Context, key string, opt *redis.ZRangeBy) ([]string, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ZRangeByScore", ctx, key, opt)
+	ret0, _ := ret[0].([]string)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ZRangeByScore indicates an expected call of ZRangeByScore.
+func (mr *MockIRedisMockRecorder) ZRangeByScore(ctx, key, opt interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ZRangeByScore", reflect.TypeOf((*MockIRedis)(nil).ZRangeByScore), ctx, key, opt)
+}
+
+// ZRank mocks base method.
+func (m *MockIRedis) ZRank(ctx context.Context, key, member string) (int64, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ZRank", ctx, key, member)
+	ret0, _ := ret[0].(int64)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ZRank indicates an expected call of ZRank.
+func (mr *MockIRedisMockRecorder) ZRank(ctx, key, member interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ZRank", reflect.TypeOf((*MockIRedis)(nil).ZRank), ctx, key, member)
+}
+
+// ZRem mocks base method.
+func (m *MockIRedis) ZRem(ctx context.Context, key string, members ...interface{}) error {
+	m.ctrl.T.Helper()
+	varargs := []interface{}{ctx, key}
+	for _, a := range members {
+		varargs = append(varargs, a)
+	}
+	ret := m.ctrl.Call(m, "ZRem", varargs...)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// ZRem indicates an expected call of ZRem.
+func (mr *MockIRedisMockRecorder) ZRem(ctx, key interface{}, members ...interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	varargs := append([]interface{}{ctx, key}, members...)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ZRem", reflect.TypeOf((*MockIRedis)(nil).ZRem), varargs...)
+}

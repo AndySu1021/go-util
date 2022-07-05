@@ -16,5 +16,10 @@ type IRedis interface {
 	Del(ctx context.Context, key string) error
 	Publish(ctx context.Context, channel string, message []byte) error
 	Subscribe(ctx context.Context, channel string) *redis.PubSub
+	ZAdd(ctx context.Context, key string, z ...*redis.Z) error
+	ZRem(ctx context.Context, key string, members ...interface{}) error
+	ZRangeByScore(ctx context.Context, key string, opt *redis.ZRangeBy) ([]string, error)
+	ZIncrBy(ctx context.Context, key string, increment float64, member string) error
+	ZRank(ctx context.Context, key, member string) (int64, error)
 	GetClient() *redis.Client
 }
