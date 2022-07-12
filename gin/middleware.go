@@ -57,6 +57,10 @@ func LogRequest() gin.HandlerFunc {
 
 		var requestPayload map[string]interface{}
 		_ = json.Unmarshal(buf, &requestPayload)
+		requestStr, err := json.Marshal(requestPayload)
+		if err != nil {
+			return
+		}
 
 		defer func(t time.Time) {
 			if !strings.Contains(c.Request.URL.Path, "health") {
@@ -65,7 +69,7 @@ func LogRequest() gin.HandlerFunc {
 					"url", c.Request.URL.String(),
 					"method", c.Request.Method,
 					"latency", fmt.Sprintf("%d ms", latency.Milliseconds()),
-					"request", requestPayload,
+					"request", string(requestStr),
 					"status", c.Writer.Status(),
 					"trace-id", traceID,
 				)
