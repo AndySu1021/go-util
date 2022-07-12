@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/99designs/gqlgen v0.17.7
+	github.com/aws/aws-sdk-go v1.44.43
 	github.com/bsm/redislock v0.7.2
 	github.com/cenkalti/backoff/v4 v4.1.2
 	github.com/gin-contrib/cors v1.3.1
@@ -23,7 +24,6 @@ require (
 )
 
 require (
-	github.com/aws/aws-sdk-go v1.44.43 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/coreos/go-semver v0.3.0 // indirect
@@ -37,6 +37,7 @@ require (
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
+	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/json-iterator/go v1.1.11 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
 	github.com/leodido/go-urn v1.2.0 // indirect
