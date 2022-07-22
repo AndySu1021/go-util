@@ -44,7 +44,7 @@ func InitZapLogger(config *ZapConfig) error {
 func resolveFile(dir, app string) (*os.File, error) {
 	dir = strings.TrimRight(dir, "/")
 	if _, err := os.Stat(dir); os.IsNotExist(err) {
-		if err = os.MkdirAll(dir, 0600); err != nil {
+		if err = os.MkdirAll(dir, 0700); err != nil {
 			return nil, err
 		}
 	}
