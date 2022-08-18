@@ -11,25 +11,26 @@ type DiskLocal struct {
 	BaseUrl string
 }
 
-func (d *DiskLocal) Upload(ctx context.Context, reader io.Reader, path, filename string) (result string, err error) {
-	fileName := getFileName(filename)
+func (d *DiskLocal) Upload(ctx context.Context, reader io.Reader, path, filename string) (string, string, error) {
+	filename = getFileName(filename)
 	rootDir := "./" + strings.Trim(path, "/") + "/"
 
-	if err = os.MkdirAll(rootDir, os.ModePerm); err != nil {
-		return "", err
+	if err := os.MkdirAll(rootDir, os.ModePerm); err != nil {
+		return "", "", err
 	}
 
-	out, err := os.Create(rootDir + fileName)
+	out, err := os.Create(rootDir + filename)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	defer out.Close()
 
 	_, err = io.Copy(out, reader)
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
-	return getUrl(d.BaseUrl, path, fileName), nil
+	url, urlWithoutDomain := getUrl(d.BaseUrl, path, filename)
+	return url, urlWithoutDomain, nil
 }

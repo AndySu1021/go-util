@@ -15,23 +15,24 @@ type DiskGCS struct {
 	BaseUrl        string
 }
 
-func (d *DiskGCS) Upload(ctx context.Context, reader io.Reader, path, filename string) (result string, err error) {
+func (d *DiskGCS) Upload(ctx context.Context, reader io.Reader, path, filename string) (string, string, error) {
 	filename = getFileName(filename)
 	rootDir := strings.Trim(path, "/") + "/"
 
 	storageClient, err := storage.NewClient(ctx, option.WithCredentialsFile(d.CredentialPath))
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	sw := storageClient.Bucket(d.Bucket).Object(rootDir + filename).NewWriter(ctx)
 	if _, err = io.Copy(sw, reader); err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	if err = sw.Close(); err != nil {
-		return "", err
+		return "", "", err
 	}
 
-	return getUrl(d.BaseUrl, path, filename), nil
+	url, urlWithoutDomain := getUrl(d.BaseUrl, path, filename)
+	return url, urlWithoutDomain, nil
 }

@@ -19,7 +19,7 @@ type DiskS3 struct {
 	BaseUrl  string
 }
 
-func (d *DiskS3) Upload(ctx context.Context, reader io.Reader, path, filename string) (result string, err error) {
+func (d *DiskS3) Upload(ctx context.Context, reader io.Reader, path, filename string) (string, string, error) {
 	filename = getFileName(filename)
 	rootDir := strings.Trim(path, "/") + "/"
 
@@ -40,8 +40,9 @@ func (d *DiskS3) Upload(ctx context.Context, reader io.Reader, path, filename st
 		Body:   reader,
 		ACL:    aws.String("public-read"),
 	}); err != nil {
-		return "", err
+		return "", "", err
 	}
 
-	return getUrl(d.BaseUrl, path, filename), nil
+	url, urlWithoutDomain := getUrl(d.BaseUrl, path, filename)
+	return url, urlWithoutDomain, nil
 }

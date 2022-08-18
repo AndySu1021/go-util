@@ -6,5 +6,5 @@ import (
 )
 
 type IStorage interface {
-	Upload(ctx context.Context, reader io.Reader, path, filename string) (string, error)
+	Upload(ctx context.Context, reader io.Reader, path, filename string) (string, string, error)
 }

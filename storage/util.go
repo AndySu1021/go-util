@@ -13,12 +13,21 @@ func getFileName(filename string) string {
 	return fmt.Sprintf("%d%d.%s", time.Now().Unix(), rand.Intn(999)+1, ext)
 }
 
-func getUrl(baseUrl, path, filename string) string {
+func getUrl(baseUrl, path, filename string) (string, string) {
+	// url with domain
 	builder := strings.Builder{}
 	builder.WriteString(strings.TrimRight(baseUrl, "/"))
 	builder.WriteString("/")
 	builder.WriteString(strings.Trim(path, "/"))
 	builder.WriteString("/")
 	builder.WriteString(filename)
-	return builder.String()
+	urlWithDomain := builder.String()
+
+	// url without domain
+	builder = strings.Builder{}
+	builder.WriteString(strings.Trim(path, "/"))
+	builder.WriteString("/")
+	builder.WriteString(filename)
+
+	return urlWithDomain, builder.String()
 }
