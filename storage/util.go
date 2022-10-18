@@ -8,9 +8,10 @@ import (
 )
 
 func getFileName(filename string) string {
+	rand.Seed(time.Now().UnixNano())
 	tmpName := strings.Split(filename, ".")
 	ext := tmpName[len(tmpName)-1]
-	return fmt.Sprintf("%d%d.%s", time.Now().Unix(), rand.Intn(999)+1, ext)
+	return fmt.Sprintf("%d.%s", time.Now().UnixMilli()*1000+int64(rand.Intn(999)+1), ext)
 }
 
 func getUrl(baseUrl, path, filename string) (string, string) {
